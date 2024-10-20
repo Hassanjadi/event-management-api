@@ -43,14 +43,13 @@ func main() {
     database.DBMigrate(DB)
 
     router := gin.Default()
-    router.Use(middleware.Auth())
-
     router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "Event Management System Api - Happy Coding!",
 		})
 	})
-
+    
+    router.Use(middleware.Auth())
     router.GET("/api/users", controllers.GetAllUser)
     router.POST("/api/users", controllers.InsertUser)
     router.GET("/api/users/:id", controllers.GetUser)
