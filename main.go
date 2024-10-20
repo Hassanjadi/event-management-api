@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"event-management-api/controllers"
 	"event-management-api/database"
+	"event-management-api/middleware"
 	"fmt"
 	"os"
 
@@ -42,6 +43,8 @@ func main() {
     database.DBMigrate(DB)
 
     router := gin.Default()
+    router.Use(middleware.Auth())
+
     router.GET("/api/users", controllers.GetAllUser)
     router.POST("/api/users", controllers.InsertUser)
     router.GET("/api/users/:id", controllers.GetUser)
